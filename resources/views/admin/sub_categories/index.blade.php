@@ -5,13 +5,13 @@
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title"> الاقسام الرئيسيه </h3>
+                    <h3 class="content-header-title"> الاقسام الفرعيه </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active">  الاقسام الرئيسيه
+                                <li class="breadcrumb-item active">  الاقسام الفرعيه
                                 </li>
                             </ol>
                         </div>
@@ -25,7 +25,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع الاقسام الرئيسيه </h4>
+                                    <h4 class="card-title">جميع الاقسام الفرعيه </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -50,30 +50,32 @@
                                                 <th> الاسم</th>
                                                 <th>الاختصار</th>
                                                 <th>الصوره</th>
+                                                <th>القسم الرئيسي</th>
                                                 <th>الحالة</th>
                                                 <th>الإجراءات</th>
                                             </tr>
                                             </thead>
                                             <tbody>
 
-                                            @isset($main_categories)
-                                                @foreach($main_categories as $main_categorie)
+                                            @isset($sub_categories)
+                                                @foreach($sub_categories as $sub_categorey)
                                                     <tr>
-                                                        <td>{{$main_categorie -> name}}</td>
-                                                        <td>{{$main_categorie -> translation_lang}}</td>
-                                                        <td><img style="width: 150px" src="{{$main_categorie -> photo}}"></td>
-                                                        <td>{{$main_categorie -> getActive()}}</td>
+                                                        <td>{{$sub_categorey -> name}}</td>
+                                                        <td>{{$sub_categorey -> translation_lang}}</td>
+                                                        <td><img style="width: 150px" src="{{$sub_categorey -> photo}}"></td>
+                                                        <td>{{$sub_categorey -> mainCategory->name}}</td>
+                                                        <td>{{$sub_categorey -> getActive()}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
-                                                                <a href="{{route('admin.MainCategories.edit',$main_categorie->id)}}"
+                                                                <a href="{{route('admin.subCategories.edit',$sub_categorey->id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
-                                                                <a href="{{route('admin.MainCategories.delete',$main_categorie->id)}}"
+                                                                <a href="{{route('admin.subCategories.delete',$sub_categorey->id)}}"
                                                                     class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
-                                                                <a href="{{route('admin.MainCategories.status',$main_categorie->id)}}"
+                                                                <a href="{{route('admin.subCategories.status',$sub_categorey->id)}}"
                                                                     class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">
                                                                     {{-- {{$main_categorie -> getActive()}} --}}
-                                                                @if($main_categorie->active == 1)الغاء التفعيل
+                                                                @if($sub_categorey->active == 1)الغاء التفعيل
                                                                 @else تفعيل
                                                                 @endif
 

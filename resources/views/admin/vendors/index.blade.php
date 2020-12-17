@@ -11,7 +11,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active">  الاقسام الرئيسيه
+                                <li class="breadcrumb-item active">   المتاجر
                                 </li>
                             </ol>
                         </div>
@@ -25,7 +25,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع الاقسام الرئيسيه </h4>
+                                    <h4 class="card-title">جميع المتاجر </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -47,36 +47,37 @@
                                             class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead>
                                             <tr>
-                                                <th> الاسم</th>
-                                                <th>الاختصار</th>
-                                                <th>الصوره</th>
-                                                <th>الحالة</th>
+                                                <th> الاسم </th>
+                                                <th>اللوجو</th>
+                                                <th>الهاتف</th>
+                                                <th>القسم الرئيسي</th>
+                                                <th> الحاله</th>
                                                 <th>الإجراءات</th>
                                             </tr>
                                             </thead>
                                             <tbody>
 
-                                            @isset($main_categories)
-                                                @foreach($main_categories as $main_categorie)
+                                            @isset($vendors)
+                                                @foreach($vendors as $vendor)
                                                     <tr>
-                                                        <td>{{$main_categorie -> name}}</td>
-                                                        <td>{{$main_categorie -> translation_lang}}</td>
-                                                        <td><img style="width: 150px" src="{{$main_categorie -> photo}}"></td>
-                                                        <td>{{$main_categorie -> getActive()}}</td>
+                                                        <td>{{$vendor -> name}}</td>
+                                                        <td><img style="width: 150px" src="{{$vendor -> logo}}"></td>
+                                                        <td>{{$vendor -> mobile}}</td>
+                                                        <td>{{$vendor -> category->name}}</td>
+                                                        <td>{{$vendor -> getActive()}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
-                                                                <a href="{{route('admin.MainCategories.edit',$main_categorie->id)}}"
+                                                                <a href="{{route('admin.vendors.edit',$vendor->id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
-                                                                <a href="{{route('admin.MainCategories.delete',$main_categorie->id)}}"
+                                                                <a href="{{route('admin.vendors.delete',$vendor->id)}}"
                                                                     class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
-                                                                <a href="{{route('admin.MainCategories.status',$main_categorie->id)}}"
+                                                                <a href="{{route('admin.vendors.status',$vendor->id)}}"
                                                                     class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">
                                                                     {{-- {{$main_categorie -> getActive()}} --}}
-                                                                @if($main_categorie->active == 1)الغاء التفعيل
+                                                                @if($vendor->active == 1)الغاء التفعيل
                                                                 @else تفعيل
                                                                 @endif
-
                                                                 </a>
 
                                                             </div>

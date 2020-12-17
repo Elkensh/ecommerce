@@ -2,44 +2,34 @@
 
 namespace App\Models;
 
-use App\Observers\MainCategoryObserver;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
-class MainCategories extends Model
+class Vendors extends Model
 {
-    protected $table    = "main_categories";
-    protected $fillable = ['translation_lang', 'translation_of', 'name', 'slug', 'photo', 'active', 'created_at', 'updated_at'];
-    protected $hidden   = ['created_at', 'updated_at'];
-
-    //observer
-    protected static function boot()
-    {
-        parent::boot();
-        MainCategories::observe(MainCategoryObserver::class);
-    }
+    use Notifiable;
+    protected $table    = "vendors";
+    protected $fillable = ['name', 'email', 'password', 'mobile', 'address', 'category_id','sunCategory_id', 'logo', 'active', 'created_at', 'updated_at'];
+    protected $hidden   = ['category_id', 'created_at', 'updated_at'];
 
 
     ##############################   Relations  #####################################################
 
-    public function categories()
+    public function category()
     {
-        return $this->hasMany(self::class, 'translation_of');
-    }
-
-    public function vendors()
-    {
-        return $this->hasMany('App\Models\Vendors', 'category_id', 'id');
+        return $this->belongsTo('App\Models\MainCategories', 'category_id', 'id');
     }
 
     public function subCategory()
     {
-        return $this->hasMany('App\Models\SubCategories', 'mainCategory_id', 'id');
+        return $this->belongsTo('App\Models\SubCategories', 'sunCategory_id', 'id');
     }
 
     ##############################  End Relations ####################################################
 
 
     ##############################  Scopes  ################################################
+
     public function scopeActive($query)
     {
         return $query->where('active', 1);
@@ -47,21 +37,23 @@ class MainCategories extends Model
 
     public function scopeSelection($query)
     {
-        return $query->select('id', 'translation_lang', 'translation_of', 'slug', 'photo', 'name', 'active');
-    }
-
-    public function scopeDefaultCategory($query)
-    {
-        return $query->where('translation_of',0);
+        return $query->select('id', 'name', 'password' , 'category_id', 'active', 'address' , 'email' , 'mobile', 'logo');
     }
 
     ##############################  End Scopes  #####################################################
 
     ##############################  Accessors ####################################################
 
-    public function getPhotoAttribute($value)
+    public function getLogoAttribute($value)
     {
         return ($value !== null) ? asset("assets/" . $value) : "";
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        if (!empty($password)) {
+            $this->attributes['password'] = bcrypt($password);
+        }
     }
 
     ############################## End Accessors ####################################################
