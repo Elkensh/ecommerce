@@ -8,6 +8,7 @@ use App\Models\Products;
 use App\Models\SubCategories;
 use App\Models\ImageUpload;
 use Exception;
+use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
+       // return $request;
         try {
             // chick active {in_stock}//
             if (!$request->has('in_stock')) {
@@ -34,7 +36,8 @@ class ProductController extends Controller
             } else {
                 $request->request->add(['in_stock' => 1]);
             }
-            $products = Products::create([
+
+                Products::create([
                 'name' => $request->name,
                 'slug' => $request->name,
                 'subcategory_id' => $request->sub_category_id,
@@ -44,10 +47,41 @@ class ProductController extends Controller
                 'in_stock' => $request->in_stock
 
             ]);
+            //Products::insert($products);
 
             return redirect()->route('admin.product')->with(['success => تم الحفظ بنجاح']);
         } catch (Exception $e) {
             return redirect()->route('admin.product')->with(['error => حدث خطا حاول لاحقا']);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $products = Products::find($id);
+            if (!$products)
+                return redirect()->route('admin.product')->with(['error' => 'هذا المنتج غير موجود']);
+
+
+            //delete photo from folder
+            $images = ImageUpload::where('product_id',$id)->get();
+            foreach($images as $image){
+                if($image->filename){
+                    $images = Str::after($image->filename, 'assets/');
+                    $images = base_path('assets/' . $images);
+                    unlink($images);
+                    //delete images
+                    $image->filename->delete();
+                }
+            }
+
+            //delete
+            $products->delete();
+
+           return redirect()->route('admin.product')->with(['success' => 'تم الحذف بنجاح']);
+        }catch(Exception $e) {
+            return $e;
+            return redirect()->route('admin.product')->with(['error' => 'حدث خطاء اثناء الحذف حاول لاحقا']);
         }
     }
 

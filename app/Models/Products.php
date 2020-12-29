@@ -21,6 +21,19 @@ class Products extends Model
     public function images()
     {
         return $this->hasMany('App\Models\ImageUpload', 'product_id', 'id');
+
+    }
+
+    public function wishlist()
+    {
+
+        return $this->belongsToMany('App\User','wish_lists','product_id','user_id','id');
+    }
+
+    public function cart()
+    {
+
+        return $this->belongsToMany('App\User','cart','product_id','user_id','id');
     }
 
     ##############################  End Relations ####################################################

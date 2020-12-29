@@ -36,6 +36,11 @@ class MainCategories extends Model
         return $this->hasMany('App\Models\SubCategories', 'mainCategory_id', 'id');
     }
 
+    public function products()
+    {
+        return $this->hasManyThrough('App\Models\Products','App\Models\SubCategories','mainCategory_id','subcategory_id','id');
+    }
+
     ##############################  End Relations ####################################################
 
 

@@ -3,27 +3,42 @@
         <div class="content">
             <div class="row">
                 <div class="header-top-left col-lg-6 col-md-6 d-flex justify-content-start align-items-center">
+
+                    @if(auth()->user())
                     <div class="detail-email d-flex align-items-center justify-content-center">
                         <i class="icon-email"></i>
-                        <p>Email :  </p>
+                        <p>Name :   </p>
                         <span>
-                  support@gmail.com
+                  {{auth()->user()->name}}
                 </span>
-                    </div>
-                    <div class="detail-call d-flex align-items-center justify-content-center">
-                        <i class="icon-deal"></i>
-                        <p>Today Deals </p>
-                    </div>
-                </div>
+            </div>
+            <div class="detail-call d-flex align-items-center justify-content-center">
+                <i class="icon-deal"></i>
+                <p>Today Deals </p>
+            </div>
+            @endif
+        </div>
                 <div class="col-lg-6 col-md-6 d-flex justify-content-end align-items-center header-top-right">
-                    <div class="register-out">
-                        <i class="zmdi zmdi-account"></i>
-                        <a class="register" href="http://demo.bestprestashoptheme.com/savemart/ar/����� ������?create_account=1" data-link-action="display-register-form">
-                            Register
-                        </a>
-                        <span class="or-text">or</span>
-                        <a class="login" href="http://demo.bestprestashoptheme.com/savemart/ar/������ ������" rel="nofollow" title="����� ������ ��� �����">Sign in</a>
-                    </div>
+
+                    @guest()
+                   <div class="register-out">
+                       <a class="register" href="{{route('register')}}" data-link-action="display-register-form">
+                        Register
+                    </a>
+                    <span class="or-text">or</span>
+                    <a class="login" href="{{route('login')}}" rel="nofollow" title="����� ������ ��� �����">Sign in</a>
+                </div>
+                @endguest
+                @auth()
+                <div class="register-out">
+                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+                    Logout
+                </a>
+                <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+             </div>
+                @endauth
 
                     <!-- begin module:ps_currencyselector/ps_currencyselector.tpl -->
                     <!-- begin /var/www/demo.bestprestashoptheme.com/public_html/savemart/themes/vinova_savemart/modules/ps_currencyselector/ps_currencyselector.tpl --><div id="_desktop_currency_selector" class="currency-selector groups-selector hidden-sm-down currentcy-selector-dropdown">

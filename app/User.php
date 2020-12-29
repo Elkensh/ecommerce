@@ -2,9 +2,12 @@
 
 namespace App;
 
+use App\Models\Products;
+use App\Models\Wishlists;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\App;
 
 class User extends Authenticatable
 {
@@ -16,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'password','mobile',
     ];
 
     /**
@@ -36,4 +39,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    ###########################   Relations   ############################################
+
+    public function codes()
+    {
+        return $this->hasMany('App\Models\User_verfication','user_id','id');
+    }
+
+    public function wishlist()
+    {
+        return $this->belongsToMany('App\Models\Products','wish_lists','user_id','product_id','id');
+    }
+
+    public function cart()
+    {
+        return $this->belongsToMany('App\Models\Products','cart','user_id','product_id','id');
+    }
+
+    public function ScopeWishlistHas($productId)
+    {
+        return self::wishlist()->where('product_id',$productId)->exists();
+    }
 }

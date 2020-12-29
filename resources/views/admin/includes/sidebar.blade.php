@@ -87,12 +87,12 @@
 
 
             <li class=" nav-item"><a href="#"><i class="la la-television"></i><span class="menu-title"
-                                                                                    data-i18n="nav.templates.main">Templates</span></a>
+                                                                                    data-i18n="nav.templates.main">الاعدادات</span></a>
                 <ul class="menu-content">
-                    <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main">Vertical</a>
+                    <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main">اسليدر الرئيسيه</a>
                         <ul class="menu-content">
-                            <li><a class="menu-item" href="../vertical-menu-template"
-                                   data-i18n="nav.templates.vert.classic_menu">Classic Menu</a>
+                            <li><a class="menu-item" href="{{route('admin.slider.image')}}"
+                                   data-i18n="nav.templates.vert.classic_menu"> اسليدر </a>
                             </li>
                             <li><a class="menu-item" href="../vertical-modern-menu-template">Modern Menu</a>
                             </li>

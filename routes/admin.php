@@ -103,6 +103,19 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'auth:admin'], function ()
 
     });
     ############################### End Vendors Routs ########################
+
+
+    ############################### Begin Slider Routs ######################
+
+    Route::group(['prefix' => 'Slider'], function () {
+
+        Route::get('image/','SliderController@fileCreate')->name('admin.slider.image');
+        Route::post('image/upload/store/','SliderController@fileStore')->name('admin.slider.image.store');
+        Route::delete('image/delete/{slider}','SliderController@fileDestroy')->name('admin.slider.image.destroy');
+
+
+    });
+    ############################### End Slider Routs ########################
 });
 
 Route::group(['namespace' => 'Admin', 'middleware' => 'guest:admin'], function () {

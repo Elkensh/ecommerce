@@ -34,26 +34,30 @@
                                 <div class="nov_preload">
                                     <div class="process-loading active">
                                         <div class="loader">
+                                            @isset($sliders)
+                                            @foreach ($sliders as $slider)
                                             <div class="dot"></div>
-                                            <div class="dot"></div>
-                                            <div class="dot"></div>
-                                            <div class="dot"></div>
-                                            <div class="dot"></div>
+
+                                            @endforeach
+                                            @endisset
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="nivoSlider">
+                                    @isset($sliders)
+                                    @foreach ($sliders as $slider)
                                     <a href="#">
-                                        <img src="http://demo.bestprestashoptheme.com/savemart/modules/novnivoslider/images/266cf50ba4d1d91fa5f5ded20bb66ea38de3b350_1.jpg" alt="" title="#htmlcaption_42" />
+                                        <img src="{{$slider->photo}}" alt="" title="#htmlcaption_42" />
                                     </a>
-                                    <a href="#">
-                                        <img src="http://demo.bestprestashoptheme.com/savemart/modules/novnivoslider/images/62896aebffd6fdce749d957fc76bd83d734fa338_2.jpg" alt="" title="#htmlcaption_43" />
-                                    </a>
-                                    <a href="#">
-                                        <img src="http://demo.bestprestashoptheme.com/savemart/modules/novnivoslider/images/195d62088850e3489886855b4239edcc4fb1868f_3.jpg" alt="" title="#htmlcaption_57" />
-                                    </a>
+
+
+                                    @endforeach
+                                    @endisset
+
                                 </div>
-                                <div id="htmlcaption_42" class="nivo-html-caption">
+
+  {{--                               <div id="htmlcaption_42" class="nivo-html-caption">
                                     <div class="nov-slider-ct">
                                         <div class="nov-center slider-none">
                                             <div class="nov-title effect-0" >
@@ -97,7 +101,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
 
                             <!-- end /var/www/demo.bestprestashoptheme.com/public_html/savemart/themes/vinova_savemart/modules/novpagemanage/views/source/slider.tpl -->

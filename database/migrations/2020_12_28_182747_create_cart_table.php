@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImageUploadsTable extends Migration
+class CreateCartTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateImageUploadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('image_uploads', function (Blueprint $table) {
-            $table->increments('id');
-            $table->text('filename');
-            $table->increments('product_id');
+        Schema::create('cart', function (Blueprint $table) {
+            $table->id();
+            $table->integer('product_id');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateImageUploadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('image_uploads');
+        Schema::dropIfExists('cart');
     }
 }
